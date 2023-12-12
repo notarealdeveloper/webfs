@@ -14,4 +14,5 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/notarealdeveloper/webfs"
+source = "https://github.com/notarealdeveloper/webfs"
+download = "https://pypi.org/project/webfs/#files"
