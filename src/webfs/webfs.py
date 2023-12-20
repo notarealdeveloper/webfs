@@ -9,6 +9,9 @@ __all__ = [
     'Page',
     'Dir',
     'File',
+    'get_cache',
+    'get_cache_root',
+    'set_cache_root',
 ]
 
 # stdlib
@@ -76,7 +79,7 @@ class Page:
     @functools.lru_cache(maxsize=1024)
     def bytes(self):
         url = self.url
-        cache = self.get_cache()
+        cache = get_cache('html')
         try:
             page = cache.load_blob(url)
         except:
@@ -102,17 +105,6 @@ class Page:
 
     def abspath(self, href):
         return self.url.abspath(href)
-
-    def get_cache(self):
-        try:
-            return self.cache
-        except:
-            self.cache = mmry.Cache('html')
-            return self.cache
-
-    def set_cache(self, *, name=None, root=None):
-        self.cache = mmry.Cache(name=name, root=root)
-        return self
 
     def __repr__(self):
         return self._repr(f"{self.__class__.__name__}({self.url!r})")
@@ -268,3 +260,21 @@ class List(list):
         else:
             return o
 
+
+# TODO: make these belong to a top level FS class
+FS = {
+    'cache_root': None,
+    'caches': {},
+}
+def get_cache_root():
+    return FS['cache_root']
+
+def set_cache_root(dir):
+    FS['cache_root'] = dir
+
+def get_cache(name):
+    try:
+        return FS[name]
+    except:
+        FS[name] = mmry.Cache(name, root=get_cache_root())
+        return FS[name]
