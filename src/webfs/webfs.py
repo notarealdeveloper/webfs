@@ -26,7 +26,6 @@ from urllib.parse import urljoin, urlparse
 # dependencies
 import bs4
 import mmry
-import kern
 import requests
 import colorama
 
@@ -193,12 +192,6 @@ class File(Page):
 
     def cat(self):
         return self.bytes()
-
-    def image_to_text(self):
-        return kern.image.to_text(io.BytesIO(self.cat()))
-
-    def pdf_to_text(self):
-        return kern.pdf.to_text(io.BytesIO(self.cat()))
 
     _color = colorama.Fore.LIGHTYELLOW_EX
 

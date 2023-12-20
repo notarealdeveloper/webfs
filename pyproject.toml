@@ -1,16 +1,15 @@
 [project]
 name = "webfs"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
   { name="Jason Wilkes", email="notarealdeveloper@gmail.com" },
 ]
-description = "A scraper that thinks it's a filesystem"
+description = "A filesystem for the web"
 dependencies = [
-    "requests",
     "bs4",
-    "colorama",
     "mmry",
-    "kern",
+    "colorama",
+    "requests",
 ]
 
 [project.urls]
